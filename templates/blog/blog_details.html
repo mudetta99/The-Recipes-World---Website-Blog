@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+  <link rel="stylesheet" href="{% static "css/blog/blog_details.css" %}">
+
+  <title>Blog|{{blog_details.title}}</title>
+
+</head>
+<body>
+
+<nav>
+
+  <div class="logo">
+    <a class="logo-name" href=" {% url 'blog' %} " style="cursor: pointer;">Recipes World Blog</a>
+  </div>
+
+    <div>
+    <a href="#">Home</a>
+    <a href=" {% url "add_recipe" %} " target="_blank">Add Your Recipes</a>
+    <a href=" {% url 'blogs' %} ">Blogs</a>
+    <a href=" {% url 'home' %} ">Recipes Website</a>
+  </div>
+</nav>
+
+<div class="news-container">
+    <div class="news-header">Latest News</div>
+    <div class="news-content">
+        <h1 class="news-title"> {{blog_details.title}} </h1>
+        <h5 class="news-description">{{blog_details.details}}</h5>
+        <span style="float: right;font-size: 10px;"> {{blog_details.added_at}} </span><br>
+        <img src="{{blog_details.image.url}}" alt="News Image" class="news-image">
+        <div class="news-info">{{blog_details.description}}</div>
+    </div>
+</div>
+
+<footer>
+  &copy; 2023 Your Blog. All rights reserved.
+</footer>
+
+</body>
+</html>

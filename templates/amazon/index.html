@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+
+<style>
+  
+    .new_recipe_img:hover {
+        scale: 1.1;
+        transition: 1s ease-in;
+        border-radius: 25px 0px ;
+        box-shadow: 2s;
+        filter: drop-shadow(0 0 0.75rem rgb(255, 217, 0));
+    }
+
+    .popular_recipe_img:hover {
+      scale: 1.1;
+      transition: 1s ease-in;
+      border-radius: 25px 0px ;
+      box-shadow: 2s;
+      filter: drop-shadow(0 0 0.75rem rgb(128, 217, 0));
+  }
+
+  .upcoming_recipe_img:hover {
+    scale: 1.1;
+    transition: 1s ease-in;
+    border-radius: 25px 0px ;
+    box-shadow: 2s;
+    filter: drop-shadow(0 0 0.75rem rgb(182, 0, 0));
+}
+
+  .btn_view_recipe {
+    width: 100%;
+    background-color:#fa9e26 ;
+    border:none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .btn_view_recipe:hover {
+    filter: drop-shadow(0 0 0.75rem rgb(255, 215, 0));
+    transition: 1s ease-in-out;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+  }
+
+  .recipe_details {
+    max-height: 2.8em; 
+    line-height: 1.4em; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+  }
+  
+  img {
+    height: 200px;
+    width: 300px;  
+    object-fit: cover; 
+  }
+
+  .contactus {
+    position: relative;
+    display: flex;
+    width: 50%%;
+    right:-50px
+  }
+  form {
+
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .form_button {
+    width: 100%;
+    background-color: #4caf50;
+    color: #fff;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .form_button:hover {
+    background-color: #45a049;
+  }
+
+  form input:focus, textarea:focus {
+    filter: drop-shadow(0 0 0.75rem rgb(255, 217, 0));
+
+  }
+
+</style>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+    <h2 style="text-align: center;margin: 15px;">Newest Recipes</h2><br>
+
+    <!-- First Photo Grid-->
+
+    <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+        {% for recipe in newest_recipes %}
+      <div class="w3-quarter">
+        <img src="{{recipe.image.url}}" alt="{{recipe.name}}" style="width:100%" class="new_recipe_img">
+        <h4 style="font-weight: bolder;"> {{recipe.name}} </h4>
+        <p class="recipe_details"> {{recipe.details}} </p>
+        <a href=" {% url 'recipe_details' recipe_name=recipe.name recipe_id=recipe.id %} "><button class="btn_view_recipe">View Recipe</button></a>
+      </div>
+    {% endfor %}
+
+    </div>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+  <h2 style="text-align: center;margin: 15px;">The Most Popular Recipes</h2><br>
+
+  <!-- First Photo Grid-->
+
+  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+      {% for recipe in popular_recipes %}
+    <div class="w3-quarter">
+      <img src="{{recipe.image.url}}" alt="{{recipe.name}}" style="width:100%" class="popular_recipe_img">
+      <h4 style="font-weight: bolder;"> {{recipe.name}} </h4>
+      <p class="recipe_details"> {{recipe.details}} </p>
+      <a href=" {% url 'recipe_details' recipe_name=recipe.name recipe_id=recipe.id %} "><button class="btn_view_recipe">View Recipe</button></a>
+
+    </div>
+  {% endfor %}
+
+  </div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+  <h2 style="text-align: center;margin: 15px;">The Upcoming Recipes</h2><br>
+
+  <!-- First Photo Grid-->
+
+  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+      {% for recipe in upcoming_recipes %}
+    <div class="w3-quarter">
+      <img src="{{recipe.image.url}}" alt="{{recipe.name}}" style="width:100%" class="upcoming_recipe_img">
+      <h4 style="font-weight: bolder;"> {{recipe.name}} </h4>
+      <p class="recipe_details"> {{recipe.details}} </p>
+      <a><button class="btn_view_recipe" style="font-weight: bold;">Soon</button></a>
+
+    </div>
+  {% endfor %}
+
+  </div>
+ 
+
+{% endblock 'content' %}
+
+
+{% block 'blogs' %}
+
+<div class="w3-third">
+  <a href=" {% url 'blogs' %} " style="text-decoration: none;" target="_blank"><h3>BLOG POSTS</h3></a>
+  <ul class="w3-ul w3-hoverable">
+    {% for blog in blogs_in_website %}
+    <li class="w3-padding-16">
+      <img src=" {{blog.image.url}} " class="w3-left w3-margin-right"  style="width:50px">
+      <a href=" {% url 'blog_details' blog_title=blog.title blog_id=blog.id %} " target="_blank" style="text-decoration: none;"><span class="w3-large" style="font-size: 13px;"> {{blog.title}} </span><br></a>
+      <span style="font-size: 11px;"> {{blog.details}} </span> <br>
+      <span style="font-size: 11px;"> {{blog.added_at}} </span>
+    </li>
+  {% endfor %}
+
+
+
+  </ul>
+</div>
+  </div>
+
+{% endblock 'blogs' %}
+
+{% block 'paginate' %}
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+    </div>
+  </div>
+{% endblock 'paginate' %}
+
+{% block 'contact_us' %}
+
+<div class="contactus">
+  
+    <!-- Contact Us Form -->
+    
+    <br>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <h3 style="text-align: center;">Contact Us&darr;</h3>
+
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required>
+      
+      <label for="email">Your Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="message">Your Message:</label>
+      <textarea id="message" name="message" rows="4" required></textarea>
+
+      <button class="form_button" type="submit" style="background-color:#f1c232 ;">Submit</button>
+
+    </form>
+
+</div>
+
+
+{% endblock 'contact_us' %}
+
+
+

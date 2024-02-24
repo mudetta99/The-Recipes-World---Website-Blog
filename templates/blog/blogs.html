@@ -1,0 +1,59 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia">
+  <link rel="stylesheet" href="{% static "css/blog/blogs_style.css" %}">
+
+
+  <title>Your Blog</title>
+  
+
+
+</head>
+<body>
+
+<nav>
+
+  <div class="logo">
+    <a class="logo-name" href=" {% url 'blog' %} " style="cursor: pointer;">Recipes World Blog</a>
+  </div>
+
+    <div>
+    <a href="#">Home</a>
+    <a href=" {% url "add_recipe" %} " target="_blank">Add Your Recipes</a>
+    <a href=" {% url 'blogs' %} ">Blogs</a>
+    <a href=" {% url 'home' %} ">Recipes Website</a>
+  </div>
+</nav>
+
+<div class="header" style="text-align: center;">
+  <h1>Latest Blogs</h1>
+</div>
+
+<div class="container" style="justify-content: space-between;display: flex;">
+  
+{% for blog in blogs %}
+
+  <div class="card">
+    <img src=" {{blog.image.url}} " alt="Image 1">
+    <h4> <a class='blog_details_link' href=" {% url 'blog_details' blog_title=blog.title blog_id=blog.id %} ">{{blog.title}}</a> </h4>
+    <h6 class="blog_short_details"> {{blog.details}} </h6>
+    <span style="font-size: 12px;"> {{blog.added_at}} </p>
+  </div>
+
+{% endfor %}
+
+
+
+</div>
+
+<footer>
+  &copy; 2023 Your Blog. All rights reserved.
+</footer>
+
+</body>
+</html>

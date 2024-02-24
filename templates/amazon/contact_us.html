@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block 'content' %}
+
+<style>
+    
+  .container {
+    width: 720px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    float: right;
+    margin-bottom: 25px;
+    margin-top: 30px;
+  }
+
+  .opinion-form {
+    display: flex;
+    flex-direction: column;
+    
+  } 
+
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  label {
+    margin-top: 10px;
+    color: #555;
+  }
+
+  input,
+  textarea {
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      width: 100%;
+  }
+
+  button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+  }
+
+  button:hover {
+      background-color: #45a049;
+  }
+
+</style>
+
+<div class="container">
+    <form action="#" method="POST" class="opinion-form">
+      
+      {% csrf_token %}
+
+        <h2 style="filter: drop-shadow(0 0 0.75rem rgb(255, 215, 0));
+        ">Say Your Opinion
+        </h2>
+
+        <input hidden type="text" name="recipe_name" value=" {{recipe.name}} ">
+        <input hidden type="text" name="recipe_id" value=" {{recipe.id}} ">
+
+        <label for="name">Your Name:</label>
+        <input type="text" id="name" name="user_name" required>
+
+        <label for="email">Your Email:</label>
+        <input type="email" id="email" name="user_email" required>
+
+        <label for="opinion">Your Opinion:</label>
+        <textarea id="opinion" name="user_opinion" rows="4" required></textarea>
+
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+
+{% endblock 'content' %}

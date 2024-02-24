@@ -1,0 +1,43 @@
+{% extends "blog_base.html" %}
+{% load static %}
+
+
+{% block 'title' %}Recipes World Blog{% endblock 'title' %}
+
+{% block 'content' %}
+
+<div class="container">
+  <div class="cover-photo">
+    <img src=" {% static 'image/blogcover.jpg' %} " alt="Cover Photo">
+    <div class="cover-text">
+      <h1 style="filter: drop-shadow(0 0 0.75rem rgb(255, 0, 0));">Welcome to The Recipes World Blog</h1>
+      <p style="filter: drop-shadow(0 0 0.75rem rgb(255, 0, 0));">Discover other's Recipes and share your recipes.</p>
+    </div>
+  </div>
+<br>      
+
+  <h1 style="text-align: center;margin-bottom: 20px;">Latest Members Recipes</h1>
+
+  <div class="card-container">
+    {% for recipe in recipes %}
+        <div class="card">
+        <img src=" {{recipe.image.url}} " alt="Product 1">
+        <h4> {{recipe.name}} </h4>
+        <p style="font-size: 14px;" class="recipe_details"> {{recipe.details}} </p>
+        <a href=" {% url 'blog_details' recipe_name=recipe.name recipe_id=recipe.id %} " class="view-details-btn">View Details</a>
+        </div>
+
+        
+    {% endfor %}
+
+  </div>
+</div>
+
+{% endblock 'content' %}
+
+<footer>
+  &copy; 2023 Recipes World Blog. All rights reserved. By: <span style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">`Mudetta`</span>
+</footer>
+
+</body>
+</html>

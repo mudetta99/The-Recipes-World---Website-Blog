@@ -1,0 +1,81 @@
+{% extends "blog_base.html" %}
+{% load static %}
+
+{% block 'title' %}Add Your Recipes{% endblock 'title' %}
+
+{% block 'content' %}
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url({% static 'image/food.jpg' %}) center/cover no-repeat; /* Replace 'food-background.jpg' with your image */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    form {
+      width: 100%;
+      max-width: 600px; /* Increase the maximum width */
+      margin: 50px auto; /* Center the form horizontally and add margin from top and bottom */
+      background-color: rgba(255, 255, 255, 0.8); /* Add a semi-transparent white background */
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group label {
+      color: #333; /* Set label color to a dark color for better contrast */
+    }
+  </style>
+
+
+<div class="container">
+  <form method='POST'>
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+
+    <div class="form-group">
+      <label for="details">Details:</label>
+      <input type="text" class="form-control" id="details" name="details" required>
+    </div>
+
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country:</label>
+      <input type="text" class="form-control" id="country" name="country" required>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Recipe's Image:</label>
+      <input type="file" class="form-control" id="image" name="image" required>
+    </div>
+
+    <div class="form-group">
+      <label for="image">Recipe's Publisher:</label>
+      <input type="text" class="form-control" id="publisher" name="publisher" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<!-- Bootstrap JS and Popper.js -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+
+
+{% endblock 'content' %}

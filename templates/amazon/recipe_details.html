@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block 'title' %}RecipesWorld {{recipe.name}}{% endblock 'title' %}
+
+{% block 'content' %}
+
+<style>
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .recipe_name:hover {
+    filter: drop-shadow(0 0 0.75rem rgb(255, 217, 0));
+    font-weight: bolder;
+  }
+
+  .new_recipe_img:hover {
+        scale: 1.1;
+        transition: 1s ease-in;
+        border-radius: 25px 0px ;
+        box-shadow: 2s;
+        filter: drop-shadow(0 0 0.75rem rgb(255, 217, 0));
+    }
+
+  .popular_recipe_img:hover {
+      scale: 1.1;
+      transition: 1s ease-in;
+      border-radius: 25px 0px ;
+      box-shadow: 2s;
+      filter: drop-shadow(0 0 0.75rem rgb(128, 217, 0));
+  }
+
+  .upcoming_recipe_img:hover {
+    scale: 1.1;
+    transition: 1s ease-in;
+    border-radius: 25px 0px ;
+    box-shadow: 2s;
+    filter: drop-shadow(0 0 0.75rem rgb(182, 0, 0));
+  }
+
+  .btn_view_recipe {
+    width: 100%;
+    background-color:#fa9e26 ;
+    border:none;
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  .btn_view_recipe:hover {
+    filter: drop-shadow(0 0 0.75rem rgb(255, 215, 0));
+    transition: 1s ease-in-out;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+  }
+
+  .recipe_decription {
+    display:flex;
+    flex-direction:column ;
+    text-transform: uppercase;
+  }
+
+
+  .container {
+    width: 720px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    float: right;
+    margin-bottom: 25px;
+    margin-top: 30px;
+  }
+
+  .opinion-form {
+    display: flex;
+    flex-direction: column;
+    
+  } 
+
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+
+  label {
+    margin-top: 10px;
+    color: #555;
+  }
+
+  input,
+  textarea {
+      padding: 10px;
+      margin: 5px 0 15px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      width: 100%;
+  }
+
+  button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+  }
+
+  button:hover {
+      background-color: #45a049;
+  }
+
+  .comments-container {
+    width: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top:50px;
+}
+
+.comment {
+    margin-bottom: 20px;
+}
+
+.comment label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment input,
+.comment textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.comment textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+.comment button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+</style>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+    <h2 style="text-align: center;margin: 15px;" class="recipe_name"> {{recipe.name}} </h2>
+      <h6 style="text-align: center;margin-bottom: 25px;"><code>This Recipe From:</code>  <span style="font-weight: bolder;color: #3d3536;">{{recipe.country}}</span> </h6>
+    <!-- First Photo Grid-->
+
+    <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+  
+      <div class="w3-quarter">
+        <img src="{{recipe.image.url}}" alt="{{recipe.name}}" style="width:150%;margin-top: 25px;" class="new_recipe_img">
+        <p style="text-align: center;margin-left:100px;"> {{recipe.details}} </p>
+
+      </div>
+
+      <div style="float: right;width: 650px;display: flex;">
+        <h3 class="recipe_decription">{{recipe.description}}</h3>            
+         
+
+      </div>
+ 
+
+    </div>
+
+
+    <div class="container">
+
+      <form action="#" method="POST" class="opinion-form">
+        
+        {% csrf_token %}
+
+          <h2 style="filter: drop-shadow(0 0 0.75rem rgb(255, 215, 0));
+          ">Say Your Opinion
+          </h2>
+
+          <input hidden type="text" name="recipe_name" value=" {{recipe.name}} ">
+          <input hidden type="text" name="recipe_id" value=" {{recipe.id}} ">
+
+          <label for="name">Your Name:</label>
+          <input type="text" id="name" name="user_name" required>
+
+          <label for="email">Your Email:</label>
+          <input type="email" id="email" name="user_email" required>
+
+          <label for="opinion">Your Opinion:</label>
+          <textarea id="opinion" name="user_opinion" rows="4" required></textarea>
+
+
+          <button type="submit">Submit</button>
+      </form>
+      
+  </div>
+
+
+  
+  <div class="comments-container">
+    <!-- Comment 1 -->
+    {% for r_id in recipe_id %}
+      {% for i_id in opinion_id %}
+      {% if i_id.id == r_id.id %}
+    <div class="comment">
+        <label for="name1">Name: {{i_id.user}} </label>
+        <label for="email1">Email: {{i_id.email}}</label>
+        <label for="message1">Opinion:</label>
+        <textarea id="message1" name="message1" required disabled>{{i_id.opinion}}</textarea>
+    </div>
+    {% endif %}
+    {% endfor %}
+{% endfor %}
+    <!-- Repeat the above structure for additional comments (2-10) -->
+
+
+</div>
+
+    
+{% endblock 'content' %}
+
+
